@@ -1,4 +1,4 @@
-# Communfy
+# Communft
 
 https://communft.web.app/
 
