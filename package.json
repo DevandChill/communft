@@ -1,0 +1,32 @@
+{
+  "name": "communfy",
+  "version": "0.1.0",
+  "repository": "",
+  "private": true,
+  "scripts": {
+    "start": "yarn workspace @communft/react-app start",
+    "build": "yarn workspace @communft/react-app build",
+    "test": "yarn workspace @communft/react-app test",
+    "emulators": "yarn workspace @communft/react-app emulators",
+    "deploy:firebase": "yarn workspace @communft/react-app deploy:firebase",
+    "deploy:hosting": "yarn workspace @communft/react-app deploy:hosting",
+    "deploy:functions": "yarn workspace @communft/react-app deploy:functions",
+    "chain": "yarn workspace @communft/hardhat chain",
+    "deploy": "yarn workspace @communft/hardhat deploy"
+  },
+  "devDependencies": {},
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/@graphprotocol/graph-ts",
+      "**/@graphprotocol/graph-ts/**",
+      "**/hardhat",
+      "**/hardhat/**",
+      "**/hardhat-ts",
+      "**/hardhat-ts/**"
+    ]
+  },
+  "dependencies": {}
+}
