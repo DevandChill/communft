@@ -1,5 +1,6 @@
 const functions = require("firebase-functions");
-const admin = require("firebase-admin");
+const { getAuth } = require("firebase-admin/auth");
+
 const {
   createMessage,
   getUnlockConfig,
@@ -33,13 +34,13 @@ console.info("Using network:", network, "for unlock");
 const verifyWalletOwnership = (address, messageToken, signature) => {
   const message = createMessage(messageToken, address);
   const recoveredAddress = verifyMessage(message, signature);
-  console.log(
-    "recoveredAddress:",
-    recoveredAddress,
-    "address:",
-    address,
-    address === recoveredAddress
-  );
+  // console.log(
+  //   "recoveredAddress:",
+  //   recoveredAddress,
+  //   "address:",
+  //   address,
+  //   address === recoveredAddress
+  // );
   return address.toLowerCase() === recoveredAddress?.toLowerCase();
 };
 
@@ -54,7 +55,7 @@ const getLockFirebaseToken = functions.https.onCall(
     }
     // const claims = await accountClaimReader.getAccountClaims(account);
     const claims = { wallet_owner: true };
-    return await admin.auth().createCustomToken(account, claims);
+    return await getAuth().createCustomToken(account, claims);
   }
 );
 

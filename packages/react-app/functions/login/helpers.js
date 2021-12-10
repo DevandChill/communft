@@ -13,7 +13,7 @@ const getUnlockConfig = () => {
 
 const createToken = (account, secret) => {
   const message = ethers.utils.hashMessage(`${account}::${secret}`);
-  console.log(`createToken(${account}, ${secret}) -> ${message}`);
+  // console.log(`createToken(${account}, ${secret}) -> ${message}`);
   return message;
 };
 

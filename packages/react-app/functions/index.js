@@ -1,5 +1,7 @@
-const admin = require("firebase-admin");
-admin.initializeApp();
+const { initializeApp } = require("firebase-admin/app");
+const app = initializeApp({
+  serviceAccountId: "communft-dnc@appspot.gserviceaccount.com",
+});
 
 module.exports = {
   // user login and creation

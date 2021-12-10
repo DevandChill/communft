@@ -27,12 +27,11 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("useEffect");
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("user", user);
+        // console.log("user", user);
         auth.currentUser.getIdTokenResult().then(function ({ claims }) {
-          console.log(claims);
+          // console.log(claims);
           dispatch(
             setUserLogin({
               uid: claims.user_id,
@@ -40,7 +39,7 @@ function App() {
           );
         });
       } else {
-        console.log("no user");
+        // console.log("no user");
       }
     });
   }, [dispatch]);
@@ -50,15 +49,14 @@ function App() {
         <Route path="/" element={<PublicLayout />}>
           <Route exact path={"/"} element={<LandingPage />} />
           <Route exact path={"/privacy"} element={<PrivacyPage />} />
+          <Route
+            exact
+            path={"/collections"}
+            element={<ExploreCollectionsPage />}
+          />
+          <Route exact path={"/user"} element={<ExploreUserPage />} />
+          <Route exact path={"/leaderboard"} element={<LeaderboardPage />} />
         </Route>
-
-        <Route
-          exact
-          path={"/collections"}
-          element={<ExploreCollectionsPage />}
-        />
-        <Route exact path={"/user"} element={<ExploreUserPage />} />
-        <Route exact path={"/leaderboard"} element={<LeaderboardPage />} />
 
         <Route path="/app" element={<AppLayout />}>
           <Route
