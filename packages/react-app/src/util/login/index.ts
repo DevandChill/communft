@@ -1,10 +1,11 @@
 import { getFunctions, httpsCallable } from "firebase/functions";
 import { getAuth, signInWithCustomToken } from "firebase/auth";
+declare let window: any;
 let _web3: any;
 
 function createMessage(messageToken: string, userAccount: string) {
   const token = `Using special token: ${messageToken}`;
-  return `[THIS SITE] wants you to sign in with your Ethereum account: ${userAccount}\n\n${token}`;
+  return `Communft wants you to sign in with your Ethereum account: ${userAccount}\n\n${token}\n\nURI: https://communft.web.app/\nVersion: 1\nNonce: upb3hamw`;
 }
 
 // Sign-In With Ethereum Example Statement
@@ -44,7 +45,11 @@ async function sign(userAccount: string, messageToken: string) {
 }
 
 async function getSelectedAddress() {
-  if (!_web3.selectedAddress) await _web3.enable();
+  if (!_web3.selectedAddress) {
+    await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+  }
   return _web3.selectedAddress;
 }
 
