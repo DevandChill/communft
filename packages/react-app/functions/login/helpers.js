@@ -4,7 +4,7 @@ const configPath = `./unlock-integration.config.json`;
 
 const createMessage = (messageToken, userAccount) => {
   const token = `Using special token: ${messageToken}`;
-  return `[THIS SITE] wants you to sign in with your Ethereum account: ${userAccount}\n\n${token}`;
+  return `Communft wants you to sign in with your Ethereum account: ${userAccount}\n\n${token}\n\nURI: https://communft.web.app/\nVersion: 1\nNonce: upb3hamw`;
 };
 
 const getUnlockConfig = () => {
