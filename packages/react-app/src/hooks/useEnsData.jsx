@@ -67,8 +67,7 @@ export const useEnsData = ({ provider, address }) => {
             });
           }
         })
-        .catch((err) => {
-          console.log("not valid ens address", err);
+        .catch(() => {
           return;
         });
     }
