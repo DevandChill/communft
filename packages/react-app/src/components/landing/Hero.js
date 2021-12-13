@@ -10,15 +10,13 @@ const Hero = () => {
               Create art collections collaboratively
             </strong>
           </h1>
-          <div className="flex">
+          <div className="flex gap-8">
             <Button width="half" size="xl">
               Draw
             </Button>
-            <div className="mx-4">
-              <Button width="half" size="xl">
-                Explore
-              </Button>
-            </div>
+            <Button width="half" size="xl">
+              Explore
+            </Button>
           </div>
         </div>
         <div className="sm:w-3/5 border-2 h-36"></div>
