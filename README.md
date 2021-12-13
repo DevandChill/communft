@@ -9,3 +9,5 @@ https://communft.web.app/
 3.  Run `yarn start`
 4.  In another terminal to start firebase emulators on localhost:4000
 5.  Run `yarn emulators`
+6.  In a third terminal to run dummy accounts
+7.  Run `yarn chain`
