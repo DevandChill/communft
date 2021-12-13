@@ -2,7 +2,7 @@ import image from "./logo192.png";
 
 const LogoOnly = ({ size }) => {
   const logoSrc = image;
-  const altTag = "Tidai";
+  const altTag = "";
   return (
     <div className="flex-shrink-0">
       {size ? (
