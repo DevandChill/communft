@@ -12,7 +12,7 @@
     "deploy:hosting": "yarn workspace @communft/react-app deploy:hosting",
     "deploy:functions": "yarn workspace @communft/react-app deploy:functions",
     "chain": "yarn workspace @communft/hardhat chain",
-    "deploy": "yarn workspace @communft/hardhat deploy"
+    "deploy:hardhat": "yarn workspace @communft/hardhat deploy"
   },
   "devDependencies": {},
   "workspaces": {
