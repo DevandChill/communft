@@ -13,6 +13,7 @@ export const useEnsData = ({ provider, address }) => {
 
   useEffect(() => {
     if (!!provider && !!address) {
+      // console.log("useENSData");
       provider
         .lookupAddress(address)
         .then((ensName) => {
