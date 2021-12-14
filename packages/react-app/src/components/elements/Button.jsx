@@ -90,6 +90,9 @@ const Button = ({
     case "pill":
       width = "w-16";
       break;
+    case "icon":
+      width = "w-8";
+      break;
     default:
       width = "w-40";
   }
