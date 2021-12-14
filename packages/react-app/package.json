@@ -17,6 +17,7 @@
     "@davatar/react": "^1.8.1",
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
+    "@jaames/iro": "^5.5.2",
     "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -29,6 +30,7 @@
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.0.2",
+    "react-sketch-canvas": "^6.1.0",
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
