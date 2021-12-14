@@ -1,6 +1,6 @@
 const HistoryBox = (props) => {
   let lineHistory = props.lineHistory;
-  console.log(lineHistory);
+  // console.log(lineHistory);
   // setLineStorage(convert(props.lineHistory.lines))
 
   const handleEye = (id) => {
