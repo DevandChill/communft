@@ -13,9 +13,10 @@ const DesignPage = () => {
   const [strokeWidth, setStrokeWidth] = useState(5);
   const [strokeColor, setStrokeColor] = useState("#FF0000");
   const [eraserWidth, setEraserWidth] = useState(5);
-  const [lines, setLines] = useState("");
-  const [lineHistory, setLineHistory] = useState([]);
-  const [exportImageType, setexportImageType] = useState("png");
+  const [linesVisable, setLinesVisable] = useState([]);
+  const [linesHistory, setLinesHistory] = useState([]);
+  // const [exportImageType, setexportImageType] = useState("png");
+  const exportImageType = "png";
 
   const canvasRef = createRef();
 
@@ -36,24 +37,18 @@ const DesignPage = () => {
   const handleColorChange = (color) => {
     setStrokeColor(color.hex8String);
   };
-
   const handleSwatchChange = (color) => {
     setStrokeColor(color);
   };
 
-  const [lineStorage, setLineStorage] = useState({});
-
   const penHandler = () => {
     const eraseMode = canvasRef.current?.eraseMode;
-
     if (eraseMode) {
       eraseMode(false);
     }
   };
-
   const eraserHandler = () => {
     const eraseMode = canvasRef.current?.eraseMode;
-
     if (eraseMode) {
       eraseMode(true);
     }
@@ -61,15 +56,12 @@ const DesignPage = () => {
 
   const undoHandler = () => {
     const undo = canvasRef.current?.undo;
-
     if (undo) {
       undo();
     }
   };
-
   const redoHandler = () => {
     const redo = canvasRef.current?.redo;
-
     if (redo) {
       redo();
     }
@@ -81,10 +73,8 @@ const DesignPage = () => {
       clearCanvas();
     }
   };
-
   const resetCanvasHandler = () => {
     const resetCanvas = canvasRef.current?.resetCanvas;
-
     if (resetCanvas) {
       resetCanvas();
     }
@@ -101,7 +91,6 @@ const DesignPage = () => {
 
   const imageExportHandler = async () => {
     const exportImage = canvasRef.current?.exportImage;
-
     if (exportImage) {
       const exportedDataURI = await exportImage(exportImageType);
       // setDataURI(exportedDataURI);
@@ -109,38 +98,37 @@ const DesignPage = () => {
     }
   };
 
-  // const blankObject = {
-  //   drawMode: true,
-  //   strokeColor: "#000000",
-  //   strokeWidth: 5,
-  //   paths: [{ x: 0, y: 0 }],
-  // };
-  const switchEye = (id) => {
-    console.log("switch eye");
-    console.log(id);
-    let switchLineHistory = lineHistory;
-    let current = lineStorage;
-    console.log(switchLineHistory);
-    if (!(id in lineStorage)) {
-      const removed = switchLineHistory.splice(id, 1);
-      current[id] = removed;
-      setLineStorage(current);
-      setLines(switchLineHistory);
+  const switchEye = ({ id, action }) => {
+    if (!action) {
+      let newLinesVisable = [...linesVisable];
+      newLinesVisable[id].strokeWidth = 0;
+      setLinesVisable(newLinesVisable);
     } else {
-      switchLineHistory.splice(id, 0, current[id]);
-      delete current[id];
-      setLines(switchLineHistory);
-      setLineStorage(current);
+      let newLinesVisable = [...linesVisable];
+      newLinesVisable[id].strokeWidth = linesHistory[id].strokeWidth;
+      setLinesVisable(newLinesVisable);
     }
-    canvasRef.current.loadPaths(switchLineHistory);
+  };
+
+  const deleteRecord = (id) => {
+    let newLinesHistory = [...linesHistory];
+    newLinesHistory.splice(id, 1);
+    setLinesHistory(newLinesHistory);
+    let newLinesVisable = [...linesVisable];
+    newLinesVisable.splice(id, 1);
+    setLinesVisable(newLinesVisable);
+
+    canvasRef.current.resetCanvas();
+    canvasRef.current.loadPaths(newLinesVisable);
   };
 
   const createHistory = () => {
     canvasRef.current
       .exportPaths()
       .then((data) => {
-        // console.log(data);
-        setLines(data);
+        let dataCopy = JSON.parse(JSON.stringify(data));
+        setLinesHistory(dataCopy);
+        setLinesVisable(data);
       })
       .catch((e) => {
         console.log(e);
@@ -148,8 +136,8 @@ const DesignPage = () => {
   };
 
   return (
-    <div>
-      <div className="m-8 flex">
+    <div className="">
+      <div className="p-8 flex">
         <div id="drawer" className="border mx-2 w-64 rounded">
           <ColorSwatches
             selectedColor={strokeColor}
@@ -218,7 +206,11 @@ const DesignPage = () => {
           />
         </div>
         <div className="border-2 w-1/3">
-          <HistoryBox lineHistory={lines} switchEye={switchEye} />
+          <HistoryBox
+            lineHistory={linesVisable}
+            switchEye={switchEye}
+            deleteRecord={deleteRecord}
+          />
         </div>
       </div>
     </div>

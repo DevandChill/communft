@@ -1,19 +1,28 @@
+import { useEffect, useState } from "react";
+import {
+  TrashIcon,
+  EyeOffIcon,
+  EyeOnIcon,
+  BrushIcon,
+  EraseIcon,
+} from "@/components/icons";
+
 const HistoryBox = (props) => {
-  let lineHistory = props.lineHistory;
+  const [lineHistory, setLineHistory] = useState([]);
+  // let lineHistory = props.lineHistory;
   // console.log(lineHistory);
-  // setLineStorage(convert(props.lineHistory.lines))
 
   const handleEye = (id) => {
     props.switchEye(id);
-    console.log("handle Eye");
-    console.log(id);
   };
 
   const handleDelete = (id) => {
-    props.switchEye(id);
-    console.log("handle delete");
-    console.log(id);
+    props.deleteRecord(id);
   };
+
+  useEffect(() => {
+    setLineHistory(props.lineHistory);
+  }, [props.lineHistory]);
 
   return (
     <div className="w-full">
@@ -23,60 +32,47 @@ const HistoryBox = (props) => {
           lineHistory.map((line, id) => (
             <div key={id} className="grid grid-cols-4 gap-2 border py-2">
               <div className="px-2 py-1 w-24 text-gray-800 font-semibold">
-                {line.paths.length} - p
+                {line.drawMode ? (
+                  <BrushIcon size="20" />
+                ) : (
+                  <EraseIcon size="20" />
+                )}
               </div>
               <div className="px-2">
-                <div
-                  className="p-2 w-16 h-8 rounded"
-                  style={{
-                    backgroundColor: `${line.strokeColor}`,
-                  }}
-                ></div>
+                {line.drawMode ? (
+                  <div
+                    className="p-2 w-16 h-7 rounded"
+                    style={{
+                      backgroundColor: `${line.strokeColor}`,
+                    }}
+                  ></div>
+                ) : (
+                  <div className="p-2 w-16 h-7 rounded"></div>
+                )}
               </div>
               <div className="px-2">
-                <button
-                  className="px-2 py-1 focus:outline-none"
-                  onClick={() => handleEye(id)}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-gray-700 hover:text-gray-900"
+                {line.strokeWidth > 0 ? (
+                  <button
+                    className="px-2 py-1 focus:outline-none"
+                    onClick={() => handleEye({ id, action: false })}
                   >
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>
-                </button>
+                    <EyeOnIcon size="5" />
+                  </button>
+                ) : (
+                  <button
+                    className="px-2 py-1 focus:outline-none"
+                    onClick={() => handleEye({ id, action: true })}
+                  >
+                    <EyeOffIcon size="5" />
+                  </button>
+                )}
               </div>
               <div className="px-2">
                 <button
                   className="px-2 py-1 focus:outline-none"
                   onClick={() => handleDelete(id)}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-gray-700 hover:text-gray-900"
-                  >
-                    <polyline points="3 6 5 6 21 6"></polyline>
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                    <line x1="10" y1="11" x2="10" y2="17"></line>
-                    <line x1="14" y1="11" x2="14" y2="17"></line>
-                  </svg>
+                  <TrashIcon size="5" />
                 </button>
               </div>
             </div>

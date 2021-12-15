@@ -92,7 +92,7 @@ const AppLayout = () => {
       <div className="">
         <PublicHeader />
       </div>
-      <div className="mt-4">
+      <div className="">
         <Outlet />
       </div>
     </div>
