@@ -9,8 +9,6 @@ import {
 
 const HistoryBox = (props) => {
   const [lineHistory, setLineHistory] = useState([]);
-  // let lineHistory = props.lineHistory;
-  // console.log(lineHistory);
 
   const handleEye = (id) => {
     props.switchEye(id);
@@ -25,7 +23,7 @@ const HistoryBox = (props) => {
   }, [props.lineHistory]);
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-white">
       <div className="font-semibold text-gray-900 text-xl my-2">History</div>
       <div className="">
         {lineHistory &&
