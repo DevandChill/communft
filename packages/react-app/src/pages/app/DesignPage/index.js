@@ -7,7 +7,18 @@ import {
   HistoryBox,
 } from "@/components/design";
 import { Button } from "@/components/elements";
-import { RedoIcon, UndoIcon, BrushIcon, EraseIcon } from "@/components/icons";
+import {
+  RedoIcon,
+  UndoIcon,
+  BrushIcon,
+  EraseIcon,
+  UserIcon,
+} from "@/components/icons";
+import trans_bg_100 from "@/components/backgrounds/transparent-bg-100.png";
+import trans_bg_500 from "@/components/backgrounds/transparent-bg-500.png";
+import silhouette from "@/components/backgrounds/silhouette.png";
+
+// const trans_bg_500 = require("@/components/backgrounds/transparent-bg-500.png");
 
 const DesignPage = () => {
   const [strokeWidth, setStrokeWidth] = useState(5);
@@ -16,7 +27,11 @@ const DesignPage = () => {
   const [linesVisable, setLinesVisable] = useState([]);
   const [linesHistory, setLinesHistory] = useState([]);
   // const [exportImageType, setexportImageType] = useState("png");
+  const [exportedImage, setExportedImage] = useState(null);
   const exportImageType = "png";
+
+  const [background, setBackground] = useState("bg-white");
+  const [backgroundImage, setBackgroundImage] = useState(false);
 
   const canvasRef = createRef();
 
@@ -80,21 +95,23 @@ const DesignPage = () => {
     }
   };
 
-  const svgExportHandler = async () => {
-    const exportSvg = canvasRef.current?.exportSvg;
-    if (exportSvg) {
-      const exportedDataURI = await exportSvg();
-      // setSVG(exportedDataURI);
-      console.log(exportedDataURI);
-    }
-  };
+  // const svgExportHandler = async () => {
+  //   const exportSvg = canvasRef.current?.exportSvg;
+  //   if (exportSvg) {
+  //     const exportedDataURI = await exportSvg();
+  //     // setSVG(exportedDataURI);
+  //     setExportedImage(exportedDataURI);
+  //     // console.log(exportedDataURI);
+  //   }
+  // };
 
   const imageExportHandler = async () => {
     const exportImage = canvasRef.current?.exportImage;
     if (exportImage) {
       const exportedDataURI = await exportImage(exportImageType);
       // setDataURI(exportedDataURI);
-      console.log(exportedDataURI);
+      setExportedImage(exportedDataURI);
+      // console.log(exportedDataURI);
     }
   };
 
@@ -136,9 +153,9 @@ const DesignPage = () => {
   };
 
   return (
-    <div className="">
+    <div className="bg-gray-900">
       <div className="p-8 flex">
-        <div id="drawer" className="border mx-2 w-64 rounded">
+        <div id="drawer" className="border mx-2 w-64 rounded bg-white">
           <ColorSwatches
             selectedColor={strokeColor}
             selectColor={handleSwatchChange}
@@ -179,13 +196,13 @@ const DesignPage = () => {
               </Button>
             </div>
             <div className="m-4">
-              <Button
+              {/* <Button
                 onClick={() => {
                   svgExportHandler();
                 }}
               >
                 SAVE TO SVG
-              </Button>
+              </Button> */}
             </div>
             <div className="m-4">
               <Button
@@ -199,11 +216,48 @@ const DesignPage = () => {
           </div>
         </div>
         <div className="mx-2">
-          <ReactSketchCanvas
-            {...canvasProperties}
-            ref={canvasRef}
-            onChange={createHistory}
+          <div className="">
+            <div style={{ background: `url(${trans_bg_500}) no-repeat` }}>
+              <div className={`${background}`} style={{ height: "500px" }}>
+                {backgroundImage ? (
+                  <div style={{ background: `url(${silhouette})` }}>
+                    <ReactSketchCanvas
+                      {...canvasProperties}
+                      ref={canvasRef}
+                      onChange={createHistory}
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    <ReactSketchCanvas
+                      {...canvasProperties}
+                      ref={canvasRef}
+                      onChange={createHistory}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          <BackgroundSelect
+            backagroundImage={setBackgroundImage}
+            background={setBackground}
           />
+          <div className="mt-4 border">
+            <div style={{ background: `url(${trans_bg_500}) no-repeat` }}>
+              <div className={`${background}`} style={{ height: "500px" }}>
+                {backgroundImage ? (
+                  <div style={{ background: `url(${silhouette})` }}>
+                    {exportedImage && <img src={exportedImage} alt="saved" />}
+                  </div>
+                ) : (
+                  <div>
+                    {exportedImage && <img src={exportedImage} alt="saved" />}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
         <div className="border-2 w-1/3">
           <HistoryBox
@@ -218,3 +272,70 @@ const DesignPage = () => {
 };
 
 export default DesignPage;
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
+const BackgroundSelect = (props) => {
+  const [background, setBackground] = useState("bg-white");
+  const [backgroundImage, setBackgroundImage] = useState(false);
+  return (
+    <div className="my-4">
+      <div className="flex justify-end">
+        <div
+          className={classNames(
+            background === "bg-white" ? " border-blue-500" : "",
+            "ml-6 border-2 rounded cursor-pointer h-10 w-10 bg-white"
+          )}
+          onClick={() => {
+            setBackground("bg-white");
+            props.background("bg-white");
+          }}
+        ></div>
+
+        <div
+          className={classNames(
+            background === "bg-black" ? " border-blue-500" : "border-black",
+            "ml-6 border-2 rounded cursor-pointer h-10 w-10 bg-black"
+          )}
+          onClick={() => {
+            setBackground("bg-black");
+            props.background("bg-black");
+          }}
+        ></div>
+
+        <div
+          className={classNames(
+            background === "transparent" ? " border-blue-500" : "",
+            "ml-6 border-2 rounded cursor-pointer h-10 w-10 bg-white"
+          )}
+          onClick={() => {
+            setBackground("transparent");
+            props.background("transparent");
+          }}
+        >
+          <div
+            className="h-9 w-9 rounded"
+            style={{
+              background: `url(${trans_bg_100}) no-repeat`,
+            }}
+          />
+        </div>
+
+        <div
+          className={classNames(
+            backgroundImage ? " border-blue-500" : "",
+            "ml-6 border-2 rounded cursor-pointer h-10 w-10 bg-white"
+          )}
+          onClick={() => {
+            setBackgroundImage(!backgroundImage);
+            props.backagroundImage(!backgroundImage);
+          }}
+        >
+          <UserIcon size="9" />
+        </div>
+      </div>
+    </div>
+  );
+};

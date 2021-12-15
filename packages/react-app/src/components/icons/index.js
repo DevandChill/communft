@@ -6,3 +6,4 @@ export { default as PenIcon } from "./PenIcon";
 export { default as BrushIcon } from "./BrushIcon";
 export { default as EraseIcon } from "./EraseIcon";
 export { default as TrashIcon } from "./TrashIcon";
+export { default as UserIcon } from "./UserIcon";
