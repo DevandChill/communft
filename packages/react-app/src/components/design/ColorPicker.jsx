@@ -1,54 +1,61 @@
-import React from "react";
+import { useEffect, useRef } from "react";
 import iro from "@jaames/iro";
 
-class ColorPicker extends React.Component {
-  componentDidMount() {
-    const { props } = this;
-    // create a new iro color picker and pass component props to it
-    this.colorPicker = new iro.ColorPicker(this.el, {
-      width: 220,
-      color: props.color,
-      layout: [
-        {
-          component: iro.ui.Wheel,
-          options: {},
-        },
-        {
-          component: iro.ui.Slider,
-          options: {
-            sliderType: "hue",
+const ColorPickerComponent = ({ color, onChange }) => {
+  const ref = useRef();
+  const colorPicker = useRef();
+  useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
+    if (!colorPicker.current) {
+      const cp = (colorPicker.current = new iro.ColorPicker(ref.current, {
+        color: color,
+        width: 220,
+        layout: [
+          {
+            component: iro.ui.Wheel,
+            options: {},
           },
-        },
-        {
-          component: iro.ui.Slider,
-          options: {
-            sliderType: "alpha",
+          {
+            component: iro.ui.Slider,
+            options: {
+              sliderType: "hue",
+            },
           },
-        },
-      ],
-    });
-
-    // call onColorChange prop whenever the color changes
-    this.colorPicker.on("color:change", (color) => {
-      if (props.onColorChange) props.onColorChange(color);
-    });
-  }
-
-  componentDidUpdate() {
-    // isolate color from the rest of the props
-    const { color, ...colorPickerState } = this.props;
-    // update color
-    if (color) this.colorPicker.color.set(color);
-    // push rest of the component props to the colorPicker's state
-    this.colorPicker.setState(colorPickerState);
-  }
-
-  render() {
-    return (
-      <div>
-        <div ref={(el) => (this.el = el)} />
-      </div>
-    );
-  }
-}
+          {
+            component: iro.ui.Slider,
+            options: {
+              sliderType: "saturation",
+            },
+          },
+          {
+            component: iro.ui.Slider,
+            options: {
+              sliderType: "value",
+            },
+          },
+          {
+            component: iro.ui.Slider,
+            options: {
+              sliderType: "alpha",
+            },
+          },
+        ],
+      }));
+      cp.on("color:change", (color) => onChange(color));
+    } else if (color !== colorPicker.current.color.hexString) {
+      colorPicker.current.color.set(color);
+    }
+  }, [color, onChange]);
+  return <div ref={ref} />;
+};
+const ColorPicker = ({ color, onColorChange }) => {
+  return (
+    <div>
+      <ColorPickerComponent color={color} onChange={onColorChange} />
+      <div className="py-2 font-bold text-gray-800 text-center">{color}</div>
+    </div>
+  );
+};
 export default ColorPicker;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 function BrushSlider({ updateAttribute }) {
   const [brushSize, setBrushSize] = useState(3);
