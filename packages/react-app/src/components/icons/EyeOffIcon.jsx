@@ -5,6 +5,9 @@ const EyeOffIcon = ({ size }) => {
       className={`h-${size} w-${size}`}
       viewBox="0 0 20 20"
       fill="currentColor"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
       <path
         fillRule="evenodd"
