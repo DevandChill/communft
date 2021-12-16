@@ -6,7 +6,7 @@ class ColorPicker extends React.Component {
     const { props } = this;
     // create a new iro color picker and pass component props to it
     this.colorPicker = new iro.ColorPicker(this.el, {
-      width: 250,
+      width: 220,
       color: props.color,
       layout: [
         {

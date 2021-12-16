@@ -20,7 +20,7 @@ const ColorSwatches = ({ selectColor, selectedColor }) => {
           let baseColor = { backgroundColor: color };
           if (color.toLowerCase() === selectedColor.toLowerCase()) {
             baseColor.border = "2px solid blue";
-            baseColor.borderRadius = "10px";
+            baseColor.borderRadius = "1px";
           }
           return (
             <button

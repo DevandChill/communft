@@ -5,20 +5,13 @@ import {
   BrushSlider,
   ColorSwatches,
   HistoryBox,
+  BackgroundSelect,
+  DraggableBox,
 } from "@/components/design";
 import { Button } from "@/components/elements";
-import {
-  RedoIcon,
-  UndoIcon,
-  BrushIcon,
-  EraseIcon,
-  UserIcon,
-} from "@/components/icons";
-import trans_bg_100 from "@/components/backgrounds/transparent-bg-100.png";
+import { RedoIcon, UndoIcon, BrushIcon, EraseIcon } from "@/components/icons";
 import trans_bg_500 from "@/components/backgrounds/transparent-bg-500.png";
 import silhouette from "@/components/backgrounds/silhouette.png";
-
-// const trans_bg_500 = require("@/components/backgrounds/transparent-bg-500.png");
 
 const DesignPage = () => {
   const [strokeWidth, setStrokeWidth] = useState(5);
@@ -153,118 +146,139 @@ const DesignPage = () => {
   };
 
   return (
-    <div className="bg-gray-900">
-      <div className="p-8 flex">
-        <div id="drawer" className="border mx-2 w-64 rounded bg-white">
-          <ColorSwatches
-            selectedColor={strokeColor}
-            selectColor={handleSwatchChange}
-          />
-          <div className="py-4 px-1">
-            <ColorPicker
-              color={strokeColor}
-              onColorChange={handleColorChange}
+    <div id="design-container" className="bg-gray-900 h-screen">
+      <div>
+        <div className="pt-8 flex">
+          <div className="border w-10 bg-gray-500">
+            <Button width="icon" onClick={() => penHandler()}>
+              <BrushIcon size="16" />
+            </Button>
+            <Button width="icon" onClick={() => eraserHandler()}>
+              <EraseIcon size="16" />
+            </Button>
+            <Button width="icon" onClick={() => undoHandler()}>
+              <UndoIcon size="16" />
+            </Button>
+            <Button width="icon" onClick={() => redoHandler()}>
+              <RedoIcon size="16" />
+            </Button>
+          </div>
+
+          <div className="mx-2">
+            <div className="">
+              <div style={{ background: `url(${trans_bg_500}) no-repeat` }}>
+                <div className={`${background}`} style={{ height: "500px" }}>
+                  {backgroundImage ? (
+                    <div style={{ background: `url(${silhouette})` }}>
+                      <ReactSketchCanvas
+                        {...canvasProperties}
+                        ref={canvasRef}
+                        onChange={createHistory}
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <ReactSketchCanvas
+                        {...canvasProperties}
+                        ref={canvasRef}
+                        onChange={createHistory}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            <BackgroundSelect
+              backagroundImage={setBackgroundImage}
+              background={setBackground}
             />
-          </div>
-          <BrushSlider updateAttribute={handleStrokeWidth} />
-          <BrushSlider updateAttribute={handleEraserWidth} />
-
-          <div className="border w-16">
-            <div className="grid grid-cols-2 gap-2">
-              <Button width="icon" onClick={() => penHandler()}>
-                <BrushIcon size="16" />
-              </Button>
-              <Button width="icon" onClick={() => eraserHandler()}>
-                <EraseIcon size="16" />
-              </Button>
-              <Button width="icon" onClick={() => undoHandler()}>
-                <UndoIcon size="16" />
-              </Button>
-              <Button width="icon" onClick={() => redoHandler()}>
-                <RedoIcon size="16" />
-              </Button>
-            </div>
-          </div>
-
-          <div className="border mt-4">
-            <div className="grid grid-cols-2 gap-4">
-              <Button width="half" onClick={() => clearHandler()}>
-                CLEAR
-              </Button>
-              <Button width="half" onClick={() => resetCanvasHandler()}>
-                RESET
-              </Button>
-            </div>
-            <div className="m-4">
-              {/* <Button
-                onClick={() => {
-                  svgExportHandler();
-                }}
-              >
-                SAVE TO SVG
-              </Button> */}
-            </div>
-            <div className="m-4">
-              <Button
-                onClick={() => {
-                  imageExportHandler();
-                }}
-              >
-                SAVE TO IMAGE
-              </Button>
-            </div>
-          </div>
-        </div>
-        <div className="mx-2">
-          <div className="">
-            <div style={{ background: `url(${trans_bg_500}) no-repeat` }}>
-              <div className={`${background}`} style={{ height: "500px" }}>
-                {backgroundImage ? (
-                  <div style={{ background: `url(${silhouette})` }}>
-                    <ReactSketchCanvas
-                      {...canvasProperties}
-                      ref={canvasRef}
-                      onChange={createHistory}
-                    />
-                  </div>
-                ) : (
-                  <div>
-                    <ReactSketchCanvas
-                      {...canvasProperties}
-                      ref={canvasRef}
-                      onChange={createHistory}
-                    />
-                  </div>
-                )}
+            <div className="mt-4 border">
+              <div style={{ background: `url(${trans_bg_500}) no-repeat` }}>
+                <div className={`${background}`} style={{ height: "500px" }}>
+                  {backgroundImage ? (
+                    <div style={{ background: `url(${silhouette})` }}>
+                      {exportedImage && <img src={exportedImage} alt="saved" />}
+                    </div>
+                  ) : (
+                    <div>
+                      {exportedImage && <img src={exportedImage} alt="saved" />}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-          <BackgroundSelect
-            backagroundImage={setBackgroundImage}
-            background={setBackground}
-          />
-          <div className="mt-4 border">
-            <div style={{ background: `url(${trans_bg_500}) no-repeat` }}>
-              <div className={`${background}`} style={{ height: "500px" }}>
-                {backgroundImage ? (
-                  <div style={{ background: `url(${silhouette})` }}>
-                    {exportedImage && <img src={exportedImage} alt="saved" />}
-                  </div>
-                ) : (
-                  <div>
-                    {exportedImage && <img src={exportedImage} alt="saved" />}
-                  </div>
-                )}
-              </div>
-            </div>
+
+          <div className="mx-4">
+            <DraggableBox
+              className="pt-2 border bg-gray-500"
+              width="w-60"
+              height="h-96"
+              title="color picker"
+            >
+              <ColorPicker
+                color={strokeColor}
+                onColorChange={handleColorChange}
+              />
+            </DraggableBox>
+            <DraggableBox
+              className="pt-2 border bg-gray-500"
+              width="w-60"
+              height="h-24"
+              title="color swatches"
+            >
+              <ColorSwatches
+                selectedColor={strokeColor}
+                selectColor={handleSwatchChange}
+              />
+            </DraggableBox>
+            <DraggableBox
+              className="pt-2 border bg-gray-500"
+              width="w-60"
+              height="h-32"
+            >
+              <BrushSlider updateAttribute={handleStrokeWidth} />
+              <BrushSlider updateAttribute={handleEraserWidth} />
+            </DraggableBox>
           </div>
-        </div>
-        <div className="border-2 w-1/3">
-          <HistoryBox
-            lineHistory={linesVisable}
-            switchEye={switchEye}
-            deleteRecord={deleteRecord}
-          />
+          <div className="mx-4">
+            <DraggableBox
+              className="border bg-gray-500"
+              width="w-56"
+              height="h-80"
+              title="history"
+            >
+              <HistoryBox
+                lineHistory={linesVisable}
+                switchEye={switchEye}
+                deleteRecord={deleteRecord}
+              />
+            </DraggableBox>
+            <DraggableBox
+              className="pt-2 border bg-gray-500"
+              width="w-56"
+              height="h-32"
+            >
+              <div className="grid grid-cols-2 gap-4">
+                <Button width="half" onClick={() => clearHandler()}>
+                  CLEAR
+                </Button>
+                <Button width="half" onClick={() => resetCanvasHandler()}>
+                  RESET
+                </Button>
+              </div>
+
+              <div className="m-4">
+                <Button
+                  onClick={() => {
+                    imageExportHandler();
+                  }}
+                >
+                  SAVE TO IMAGE
+                </Button>
+              </div>
+            </DraggableBox>
+          </div>
         </div>
       </div>
     </div>
@@ -272,70 +286,3 @@ const DesignPage = () => {
 };
 
 export default DesignPage;
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-const BackgroundSelect = (props) => {
-  const [background, setBackground] = useState("bg-white");
-  const [backgroundImage, setBackgroundImage] = useState(false);
-  return (
-    <div className="my-4">
-      <div className="flex justify-end">
-        <div
-          className={classNames(
-            background === "bg-white" ? " border-blue-500" : "",
-            "ml-6 border-2 rounded cursor-pointer h-10 w-10 bg-white"
-          )}
-          onClick={() => {
-            setBackground("bg-white");
-            props.background("bg-white");
-          }}
-        ></div>
-
-        <div
-          className={classNames(
-            background === "bg-black" ? " border-blue-500" : "border-black",
-            "ml-6 border-2 rounded cursor-pointer h-10 w-10 bg-black"
-          )}
-          onClick={() => {
-            setBackground("bg-black");
-            props.background("bg-black");
-          }}
-        ></div>
-
-        <div
-          className={classNames(
-            background === "transparent" ? " border-blue-500" : "",
-            "ml-6 border-2 rounded cursor-pointer h-10 w-10 bg-white"
-          )}
-          onClick={() => {
-            setBackground("transparent");
-            props.background("transparent");
-          }}
-        >
-          <div
-            className="h-9 w-9 rounded"
-            style={{
-              background: `url(${trans_bg_100}) no-repeat`,
-            }}
-          />
-        </div>
-
-        <div
-          className={classNames(
-            backgroundImage ? " border-blue-500" : "",
-            "ml-6 border-2 rounded cursor-pointer h-10 w-10 bg-white"
-          )}
-          onClick={() => {
-            setBackgroundImage(!backgroundImage);
-            props.backagroundImage(!backgroundImage);
-          }}
-        >
-          <UserIcon size="9" />
-        </div>
-      </div>
-    </div>
-  );
-};

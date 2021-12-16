@@ -5,6 +5,9 @@ const EyeOnIcon = ({ size }) => {
       className={`h-${size} w-${size}`}
       viewBox="0 0 20 20"
       fill="currentColor"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
       <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
       <path

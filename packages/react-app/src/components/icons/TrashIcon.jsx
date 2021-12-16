@@ -6,6 +6,8 @@ const TrashIcon = ({ size }) => {
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
       <path
         strokeLinecap="round"
