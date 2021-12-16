@@ -7,9 +7,9 @@ import {
   HistoryBox,
   BackgroundSelect,
   DraggableBox,
+  SideToolbar,
 } from "@/components/design";
 import { Button } from "@/components/elements";
-import { RedoIcon, UndoIcon, BrushIcon, EraseIcon } from "@/components/icons";
 import trans_bg_500 from "@/components/backgrounds/transparent-bg-500.png";
 import silhouette from "@/components/backgrounds/silhouette.png";
 
@@ -49,29 +49,25 @@ const DesignPage = () => {
     setStrokeColor(color);
   };
 
-  const penHandler = () => {
+  const handleSideToolbarSelect = (val) => {
     const eraseMode = canvasRef.current?.eraseMode;
-    if (eraseMode) {
-      eraseMode(false);
-    }
-  };
-  const eraserHandler = () => {
-    const eraseMode = canvasRef.current?.eraseMode;
-    if (eraseMode) {
-      eraseMode(true);
-    }
-  };
-
-  const undoHandler = () => {
-    const undo = canvasRef.current?.undo;
-    if (undo) {
-      undo();
-    }
-  };
-  const redoHandler = () => {
-    const redo = canvasRef.current?.redo;
-    if (redo) {
-      redo();
+    switch (val) {
+      case "brush":
+        if (eraseMode) eraseMode(false);
+        break;
+      case "erase":
+        if (eraseMode) eraseMode(true);
+        break;
+      case "undo":
+        const undo = canvasRef.current?.undo;
+        if (undo) undo();
+        break;
+      case "redo":
+        const redo = canvasRef.current?.redo;
+        if (redo) redo();
+        break;
+      default:
+        break;
     }
   };
 
@@ -148,23 +144,10 @@ const DesignPage = () => {
   return (
     <div id="design-container" className="bg-gray-900 h-screen">
       <div>
-        <div className="pt-8 flex">
-          <div className="border w-10 bg-gray-500">
-            <Button width="icon" onClick={() => penHandler()}>
-              <BrushIcon size="16" />
-            </Button>
-            <Button width="icon" onClick={() => eraserHandler()}>
-              <EraseIcon size="16" />
-            </Button>
-            <Button width="icon" onClick={() => undoHandler()}>
-              <UndoIcon size="16" />
-            </Button>
-            <Button width="icon" onClick={() => redoHandler()}>
-              <RedoIcon size="16" />
-            </Button>
-          </div>
+        <div className="flex">
+          <SideToolbar sideToolbarSelect={handleSideToolbarSelect} />
 
-          <div className="mx-2">
+          <div className="pt-8 mx-2">
             <div className="">
               <div style={{ background: `url(${trans_bg_500}) no-repeat` }}>
                 <div className={`${background}`} style={{ height: "500px" }}>
@@ -209,39 +192,7 @@ const DesignPage = () => {
             </div>
           </div>
 
-          <div className="mx-4">
-            <DraggableBox
-              className="pt-2 border bg-gray-500"
-              width="w-60"
-              height="h-96"
-              title="color picker"
-            >
-              <ColorPicker
-                color={strokeColor}
-                onColorChange={handleColorChange}
-              />
-            </DraggableBox>
-            <DraggableBox
-              className="pt-2 border bg-gray-500"
-              width="w-60"
-              height="h-24"
-              title="color swatches"
-            >
-              <ColorSwatches
-                selectedColor={strokeColor}
-                selectColor={handleSwatchChange}
-              />
-            </DraggableBox>
-            <DraggableBox
-              className="pt-2 border bg-gray-500"
-              width="w-60"
-              height="h-32"
-            >
-              <BrushSlider updateAttribute={handleStrokeWidth} />
-              <BrushSlider updateAttribute={handleEraserWidth} />
-            </DraggableBox>
-          </div>
-          <div className="mx-4">
+          <div className="pt-1 mx-4">
             <DraggableBox
               className="border bg-gray-500"
               width="w-56"
@@ -277,6 +228,39 @@ const DesignPage = () => {
                   SAVE TO IMAGE
                 </Button>
               </div>
+            </DraggableBox>
+          </div>
+
+          <div className="pt-1 mx-4">
+            <DraggableBox
+              className="pt-2 border bg-gray-500"
+              width="w-60"
+              height="h-auto"
+              title="color picker"
+            >
+              <ColorPicker
+                color={strokeColor}
+                onColorChange={handleColorChange}
+              />
+            </DraggableBox>
+            <DraggableBox
+              className="pt-2 border bg-gray-500"
+              width="w-60"
+              height="h-24"
+              title="color swatches"
+            >
+              <ColorSwatches
+                selectedColor={strokeColor}
+                selectColor={handleSwatchChange}
+              />
+            </DraggableBox>
+            <DraggableBox
+              className="pt-2 border bg-gray-500"
+              width="w-60"
+              height="h-32"
+            >
+              <BrushSlider updateAttribute={handleStrokeWidth} />
+              <BrushSlider updateAttribute={handleEraserWidth} />
             </DraggableBox>
           </div>
         </div>

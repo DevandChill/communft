@@ -52,20 +52,20 @@ const HistoryBox = (props) => {
                 )}
               </div>
               <div className="w-24 flex text-gray-700">
-                <div className="mx-2">
+                <div className="mx-2 text-gray-700">
                   {line.strokeWidth > 0 ? (
                     <button
                       className="py-1 focus:outline-none"
                       onClick={() => handleEye({ id, action: false })}
                     >
-                      <EyeOnIcon size="5" />
+                      <EyeOnIcon size="20" />
                     </button>
                   ) : (
                     <button
                       className="py-1 focus:outline-none"
                       onClick={() => handleEye({ id, action: true })}
                     >
-                      <EyeOffIcon size="5" />
+                      <EyeOffIcon size="20" />
                     </button>
                   )}
                 </div>
@@ -74,7 +74,7 @@ const HistoryBox = (props) => {
                     className="py-1 focus:outline-none"
                     onClick={() => handleDelete(id)}
                   >
-                    <TrashIcon size="5" />
+                    <TrashIcon size="20" />
                   </button>
                 </div>
               </div>
