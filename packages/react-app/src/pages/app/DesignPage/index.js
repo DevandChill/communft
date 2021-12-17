@@ -26,6 +26,14 @@ const DesignPage = () => {
   const [background, setBackground] = useState("bg-white");
   const [backgroundImage, setBackgroundImage] = useState(false);
 
+  const [showWidget, setShowWidget] = useState({
+    colorPicker: true,
+    brushSlider: true,
+    colorSwatches: true,
+    historyBox: true,
+    saveBox: true,
+  });
+
   const canvasRef = createRef();
 
   const canvasProperties = {
@@ -145,7 +153,12 @@ const DesignPage = () => {
     <div id="design-container" className="bg-gray-900 h-screen">
       <div>
         <div className="flex">
-          <SideToolbar sideToolbarSelect={handleSideToolbarSelect} />
+          <SideToolbar
+            sideToolbarSelect={handleSideToolbarSelect}
+            sideToolbarWidget={(val) => {
+              setShowWidget({ ...showWidget, [val]: !showWidget[val] });
+            }}
+          />
 
           <div className="pt-8 mx-2">
             <div className="">
@@ -198,6 +211,7 @@ const DesignPage = () => {
               width="w-56"
               height="h-80"
               title="history"
+              showWidget={showWidget.historyBox}
             >
               <HistoryBox
                 lineHistory={linesVisable}
@@ -209,6 +223,7 @@ const DesignPage = () => {
               className="pt-2 border bg-gray-500"
               width="w-56"
               height="h-32"
+              showWidget={showWidget.saveBox}
             >
               <div className="grid grid-cols-2 gap-4">
                 <Button width="half" onClick={() => clearHandler()}>
@@ -237,6 +252,7 @@ const DesignPage = () => {
               width="w-60"
               height="h-auto"
               title="color picker"
+              showWidget={showWidget.colorPicker}
             >
               <ColorPicker
                 color={strokeColor}
@@ -248,6 +264,7 @@ const DesignPage = () => {
               width="w-60"
               height="h-24"
               title="color swatches"
+              showWidget={showWidget.colorSwatches}
             >
               <ColorSwatches
                 selectedColor={strokeColor}
@@ -258,6 +275,7 @@ const DesignPage = () => {
               className="pt-2 border bg-gray-500"
               width="w-60"
               height="h-32"
+              showWidget={showWidget.brushSlider}
             >
               <BrushSlider updateAttribute={handleStrokeWidth} />
               <BrushSlider updateAttribute={handleEraserWidth} />

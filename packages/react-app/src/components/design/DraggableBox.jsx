@@ -1,9 +1,28 @@
+import { useState, useEffect } from "react";
 import interact from "interactjs";
 
-const DraggableBox = ({ children, title, className, width, height }) => {
+const DraggableBox = ({
+  children,
+  title,
+  className,
+  width,
+  height,
+  showWidget,
+}) => {
+  const [show, setShow] = useState(null);
+  const handleClose = () => {
+    setShow(false);
+  };
+  useEffect(() => {
+    setShow(showWidget);
+  }, [showWidget]);
+
+  if (!show) {
+    return null;
+  }
   return (
     <div className={``}>
-      <TitleBar>{title}</TitleBar>
+      <TitleBar close={handleClose}>{title}</TitleBar>
       <div
         className={`overflow-y-auto overflow-x-hidden ${className} ${width} ${height}`}
       >
@@ -15,14 +34,17 @@ const DraggableBox = ({ children, title, className, width, height }) => {
 
 export default DraggableBox;
 
-function TitleBar({ className = "", barWidth, children, ...rest }) {
+function TitleBar({ className = "", barWidth, children, close, ...rest }) {
   return (
     <div
-      className={`titlebar draggable h-6 bg-gray-300 px-2 text-gray-700 font-bold uppercase`}
+      className={`titlebar draggable flex justify-between h-6 bg-gray-300 px-2 text-gray-700 font-bold uppercase`}
       {...rest}
     >
-      {children}
-      <div style={{ float: "right", marginRight: "0px" }}>
+      <div>{children}</div>
+      <div
+        className="cursor-pointer hover:text-gray-900 px-2"
+        onClick={() => close()}
+      >
         <p className="exit-icon">X</p>
       </div>
     </div>

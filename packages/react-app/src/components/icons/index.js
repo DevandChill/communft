@@ -7,3 +7,8 @@ export { default as BrushIcon } from "./BrushIcon";
 export { default as EraseIcon } from "./EraseIcon";
 export { default as TrashIcon } from "./TrashIcon";
 export { default as UserIcon } from "./UserIcon";
+export { default as ColorIcon } from "./ColorIcon";
+export { default as HistoryIcon } from "./HistoryIcon";
+export { default as PaletteIcon } from "./PaletteIcon";
+export { default as SaveIcon } from "./SaveIcon";
+export { default as SliderIcon } from "./SliderIcon";
