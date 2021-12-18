@@ -55,7 +55,11 @@ function App() {
             element={<ExploreCollectionsPage />}
           />
           <Route exact path={"/user/:id"} element={<ExploreUserPage />} />
-          <Route exact path={"/leaderboard"} element={<LeaderboardPage />} />
+          <Route
+            exact
+            path={"/leaderboard/:id"}
+            element={<LeaderboardPage />}
+          />
         </Route>
 
         <Route path="/app" element={<AppLayout />}>

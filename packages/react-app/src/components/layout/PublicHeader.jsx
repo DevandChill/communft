@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { signInWithWeb3 } from "@/util/login/index.ts";
+import { signInWithWeb3 } from "@/utils/login/index.ts";
 import { Logo } from "@/components/logo";
 import firebaseApp from "@/services/firebase";
 import { getAuth, signOut } from "firebase/auth";
