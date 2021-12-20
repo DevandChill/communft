@@ -18,4 +18,13 @@ function cardFormatDate(dateStr) {
   } else return;
 }
 
-export { formatDate, cardFormatDate };
+function bannerFormatDate(dateStr) {
+  const date = new Date(dateStr);
+  if (dateStr) {
+    return Intl.DateTimeFormat("en-US", {
+      dateStyle: "long",
+    }).format(date);
+  } else return;
+}
+
+export { formatDate, cardFormatDate, bannerFormatDate };

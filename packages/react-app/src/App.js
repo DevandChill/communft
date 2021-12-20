@@ -19,7 +19,7 @@ import PlaygroundPage from "@/pages/public/PlaygroundPage";
 import PrivacyPage from "@/pages/public/PrivacyPage";
 import UserPage from "@/pages/public/UserPage";
 
-import { PublicHeader, PublicFooter } from "@/components/layout";
+import { PublicHeader } from "@/components/layout";
 // import { AppHeader, PublicHeader, PublicFooter } from "@/components/layout";
 
 const auth = getAuth(firebaseApp);
@@ -79,7 +79,7 @@ const PublicLayout = () => {
     <div>
       <PublicHeader />
       <Outlet />
-      <PublicFooter />
+      {/* <PublicFooter /> */}
     </div>
   );
 };

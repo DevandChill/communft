@@ -1,2 +1,2 @@
 export { default as useEnsData } from "./useEnsData";
-export { default as useUserData } from "./useUserData";
+export { default as useUserPublicData } from "./useUserPublicData";

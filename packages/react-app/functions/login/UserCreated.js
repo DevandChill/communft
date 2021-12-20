@@ -19,7 +19,6 @@ exports.newUserAdded = functions.auth.user().onCreate((user) => {
           useAddressUsername: true,
           useENSusername: false,
           useENSdata: false,
-          // info: {
           username: "",
           avatar: "",
           email: "",
@@ -30,12 +29,6 @@ exports.newUserAdded = functions.auth.user().onCreate((user) => {
           reddit: "",
           twitter: "",
           telegram: "",
-          // },
-          // collections: {
-          //   created: [],
-          //   contributing: [],
-          //   watching: [],
-          // },
         });
       return createUser;
     } catch (err) {
