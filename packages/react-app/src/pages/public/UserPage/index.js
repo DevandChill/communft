@@ -4,7 +4,7 @@ import { useEnsData } from "@/hooks/useEnsData";
 import { ethers } from "ethers";
 import Davatar from "@davatar/react";
 
-const ExploreUserPage = () => {
+const UserPage = () => {
   const [loading, setLoading] = useState(true);
   const address = useLocation().pathname.replace("/user/", "");
 
@@ -74,4 +74,4 @@ const ExploreUserPage = () => {
   }
 };
 
-export default ExploreUserPage;
+export default UserPage;
