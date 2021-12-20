@@ -16,7 +16,7 @@ const auth = getAuth();
 const navItems = [
   {
     name: "Explore",
-    link: "/collections",
+    link: "/explore",
   },
   {
     name: "Create",
