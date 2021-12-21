@@ -7,7 +7,7 @@ const Hero = () => {
         <div className="sm:w-2/5 flex flex-col items-start mt-8 sm:mt-0">
           <h1 className="text-4xl lg:text-6xl leading-none mb-4">
             <strong className="font-black">
-              Create art collections collaboratively
+              Create Art collections collaboratively
             </strong>
           </h1>
           <div className="flex gap-8">

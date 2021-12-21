@@ -10,8 +10,7 @@ const UserBanner = ({
   github,
   twitter,
 }) => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  console.log(avatar);
+  const provider = ethers.getDefaultProvider();
 
   return (
     <div className="bg-gray-200">

@@ -21,7 +21,8 @@ export const useUserPublicData = (userId) => {
   const [userAccount, setUserAccount] = useState(null);
 
   const getENSUsername = useCallback((address, ensData) => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = ethers.getDefaultProvider();
+
     provider
       .lookupAddress(address)
       .then((ensName) => {
@@ -40,7 +41,7 @@ export const useUserPublicData = (userId) => {
   const getENSData = async (ensName, address) => {
     if (ensName) {
       setAvatar(address);
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = ethers.getDefaultProvider();
       provider
         .getResolver(ensName)
         .then((resolver) => {
