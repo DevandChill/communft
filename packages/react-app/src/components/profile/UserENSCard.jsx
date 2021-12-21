@@ -2,7 +2,7 @@ import { useEnsData } from "@/hooks/useEnsData";
 import { ethers } from "ethers";
 
 const UserENSCard = (uid) => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = ethers.getDefaultProvider();
   const {
     name,
     email,

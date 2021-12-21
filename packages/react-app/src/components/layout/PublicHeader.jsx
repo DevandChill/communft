@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { signInWithWeb3 } from "@/utils/login/index.ts";
 import { Logo } from "@/components/logo";
@@ -36,12 +37,23 @@ function classNames(...classes) {
 }
 
 const PublicHeader = () => {
+  const [provider, setProvider] = useState(null);
   const currentUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+  useEffect(() => {
+    const { ethereum } = window;
+    if (ethereum) {
+      setProvider(new ethers.providers.Web3Provider(ethereum));
+    }
+  }, []);
 
   const handleLogin = () => {
-    signInWithWeb3(firebaseApp);
+    if (provider) {
+      signInWithWeb3(firebaseApp);
+    } else {
+      alert("Please install MetaMask to be able to Login");
+    }
   };
   const handleLogout = () => {
     signOut(auth);
@@ -77,11 +89,13 @@ const PublicHeader = () => {
                   <Menu as="div" className="ml-3 relative">
                     <div>
                       <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none">
-                        <Davatar
-                          size={36}
-                          provider={provider}
-                          address={currentUser.uid}
-                        />
+                        {provider && (
+                          <Davatar
+                            size={36}
+                            provider={provider}
+                            address={currentUser.uid}
+                          />
+                        )}
                       </Menu.Button>
                     </div>
                     <Transition
@@ -171,11 +185,13 @@ const PublicHeader = () => {
               <div className="pt-4 pb-3 border-t border-gray-200">
                 <div className="flex items-center px-4">
                   <div className="flex-shrink-0">
-                    <Davatar
-                      size={36}
-                      provider={provider}
-                      address={currentUser.uid}
-                    />
+                    {provider && (
+                      <Davatar
+                        size={36}
+                        provider={provider}
+                        address={currentUser.uid}
+                      />
+                    )}
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium text-gray-800">
