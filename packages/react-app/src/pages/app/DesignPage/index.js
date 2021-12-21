@@ -108,7 +108,7 @@ const DesignPage = () => {
       const exportedDataURI = await exportImage(exportImageType);
       // setDataURI(exportedDataURI);
       setExportedImage(exportedDataURI);
-      // console.log(exportedDataURI);
+      console.log(exportedImage);
     }
   };
 
@@ -188,7 +188,7 @@ const DesignPage = () => {
               backagroundImage={setBackgroundImage}
               background={setBackground}
             />
-            <div className="mt-4 border">
+            {/* <div className="mt-4 border">
               <div style={{ background: `url(${trans_bg_500}) no-repeat` }}>
                 <div className={`${background}`} style={{ height: "500px" }}>
                   {backgroundImage ? (
@@ -202,7 +202,7 @@ const DesignPage = () => {
                   )}
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="pt-1 mx-4">

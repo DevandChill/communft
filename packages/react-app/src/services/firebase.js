@@ -1,4 +1,5 @@
 import { initializeApp, getApp } from "firebase/app";
+import { getAnalytics, logEvent } from "firebase/analytics";
 import { getAuth, connectAuthEmulator } from "firebase/auth";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
@@ -10,9 +11,12 @@ const config = {
   storageBucket: process.env.REACT_APP_PROD_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_PROD_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_PROD_APP_ID,
+  measurementId: process.env.REACT_APP_PROD_MEASUREMENT_ID,
 };
 
 const firebaseApp = initializeApp(config);
+const analytics = getAnalytics(firebaseApp);
+logEvent(analytics, "notification_received");
 
 export default firebaseApp;
 

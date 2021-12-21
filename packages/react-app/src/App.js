@@ -6,19 +6,20 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { setUserLogin } from "./store/user/userSlice";
 import { useDispatch } from "react-redux";
 
-import LandingPage from "@/pages/public/Landing";
-import ExploreCollectionsPage from "@/pages/public/ExploreCollectionsPage";
-import ExploreUserPage from "@/pages/public/ExploreUserPage";
-import LeaderboardPage from "@/pages/public/LeaderboardPage";
-import PrivacyPage from "@/pages/public/Privacy";
-
 import CreateCollectionPage from "@/pages/app/CreateCollectionPage";
 import DesignPage from "@/pages/app/DesignPage";
 import MintingPage from "@/pages/app/MintingPage";
 import ProfilePage from "@/pages/app/ProfilePage";
-import TraitsPage from "@/pages/app/TraitsPage";
 
-import { PublicHeader, PublicFooter } from "@/components/layout";
+import CollectionPage from "@/pages/public/CollectionPage";
+import ExplorePage from "@/pages/public/ExplorePage";
+import LandingPage from "@/pages/public/LandingPage";
+import LeaderboardPage from "@/pages/public/LeaderboardPage";
+import PlaygroundPage from "@/pages/public/PlaygroundPage";
+import PrivacyPage from "@/pages/public/PrivacyPage";
+import UserPage from "@/pages/public/UserPage";
+
+import { PublicHeader } from "@/components/layout";
 // import { AppHeader, PublicHeader, PublicFooter } from "@/components/layout";
 
 const auth = getAuth(firebaseApp);
@@ -49,13 +50,11 @@ function App() {
         <Route path="/" element={<PublicLayout />}>
           <Route exact path={"/"} element={<LandingPage />} />
           <Route exact path={"/privacy"} element={<PrivacyPage />} />
-          <Route
-            exact
-            path={"/collections"}
-            element={<ExploreCollectionsPage />}
-          />
-          <Route exact path={"/user/:id"} element={<ExploreUserPage />} />
+          <Route exact path={"/explore"} element={<ExplorePage />} />
+          <Route exact path={"/collection/:id"} element={<CollectionPage />} />
+          <Route exact path={"/user/:id"} element={<UserPage />} />
           <Route exact path={"/leaderboard"} element={<LeaderboardPage />} />
+          <Route exact path={"/playground"} element={<PlaygroundPage />} />
         </Route>
 
         <Route path="/app" element={<AppLayout />}>
@@ -67,7 +66,6 @@ function App() {
           <Route exact path={"/app/design"} element={<DesignPage />} />
           <Route exact path={"/app/minting"} element={<MintingPage />} />
           <Route exact path={"/app/profile"} element={<ProfilePage />} />
-          <Route exact path={"/app/traits"} element={<TraitsPage />} />
         </Route>
       </Routes>
     </div>
@@ -81,7 +79,7 @@ const PublicLayout = () => {
     <div>
       <PublicHeader />
       <Outlet />
-      <PublicFooter />
+      {/* <PublicFooter /> */}
     </div>
   );
 };
