@@ -94,6 +94,7 @@ const CollectionPage = () => {
                 <TraitCard trait={trait} />
               </div>
             );
+          else return null;
         })}
       </div>
     </div>
