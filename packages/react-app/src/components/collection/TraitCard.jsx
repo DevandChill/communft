@@ -1,5 +1,4 @@
 const TraitCard = ({ trait }) => {
-  //   const img_url = trait.img_url;
   const title = trait.title;
   return (
     <div className="mx-4">

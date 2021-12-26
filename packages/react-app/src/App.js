@@ -11,13 +11,16 @@ import DesignPage from "@/pages/app/DesignPage";
 import MintingPage from "@/pages/app/MintingPage";
 import ProfilePage from "@/pages/app/ProfilePage";
 
-import CollectionPage from "@/pages/public/CollectionPage";
-import ExplorePage from "@/pages/public/ExplorePage";
 import LandingPage from "@/pages/public/LandingPage";
+import ExplorePage from "@/pages/public/ExplorePage";
+import CreatePage from "@/pages/public/CreatePage";
+import CollectionPage from "@/pages/public/CollectionPage";
 import LeaderboardPage from "@/pages/public/LeaderboardPage";
 import PlaygroundPage from "@/pages/public/PlaygroundPage";
-import PrivacyPage from "@/pages/public/PrivacyPage";
 import UserPage from "@/pages/public/UserPage";
+import PrivacyPage from "@/pages/public/PrivacyPage";
+
+import NotFoundPage from "@/pages/public/NotFoundPage";
 
 import { PublicHeader } from "@/components/layout";
 // import { AppHeader, PublicHeader, PublicFooter } from "@/components/layout";
@@ -49,12 +52,15 @@ function App() {
       <Routes>
         <Route path="/" element={<PublicLayout />}>
           <Route exact path={"/"} element={<LandingPage />} />
-          <Route exact path={"/privacy"} element={<PrivacyPage />} />
           <Route exact path={"/explore"} element={<ExplorePage />} />
+          <Route exact path={"/create"} element={<CreatePage />} />
           <Route exact path={"/collection/:id"} element={<CollectionPage />} />
           <Route exact path={"/user/:id"} element={<UserPage />} />
           <Route exact path={"/leaderboard"} element={<LeaderboardPage />} />
           <Route exact path={"/playground"} element={<PlaygroundPage />} />
+          <Route exact path={"/privacy"} element={<PrivacyPage />} />
+
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
 
         <Route path="/app" element={<AppLayout />}>

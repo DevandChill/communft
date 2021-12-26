@@ -21,7 +21,7 @@ const navItems = [
   },
   {
     name: "Create",
-    link: "/app/create",
+    link: "/create",
   },
 ];
 
