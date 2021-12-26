@@ -1,6 +1,4 @@
 import { useState } from "react";
-// import TraitCard from "./TraitCard";
-// import TraitsTab from "./TraitsTab";
 import {
   CollectionHeader,
   TraitsTab,
