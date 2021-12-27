@@ -39,7 +39,22 @@ const UserPage = () => {
             twitter={twitter}
           />
           <div>
-            {userAccount === false && (
+            {userAccount ? (
+              <div className="m-8">
+                <div className="border-2 p-2 my-4">
+                  <div className="text-center font-semibold text-gray-800 text-2xl">
+                    Collections
+                  </div>
+                  <div>Cards</div>
+                </div>
+                <div className="border-2 p-2 my-4">
+                  <div className="text-center font-semibold text-gray-800 text-2xl">
+                    Traits
+                  </div>
+                  <div>Cards</div>
+                </div>
+              </div>
+            ) : (
               <div className="my-8 flex items-center justify-center text-gray-700 text-2xl font-semibold">
                 User hasn't created an account yet
               </div>
