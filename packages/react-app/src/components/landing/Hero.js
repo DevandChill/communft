@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/elements";
 
 const Hero = () => {
@@ -11,12 +12,16 @@ const Hero = () => {
             </strong>
           </h1>
           <div className="flex gap-8">
-            <Button width="half" size="xl">
-              Draw
-            </Button>
-            <Button width="half" size="xl">
-              Explore
-            </Button>
+            <Link to="/app/design">
+              <Button width="half" size="xl">
+                Draw
+              </Button>
+            </Link>
+            <Link to="/explore">
+              <Button width="half" size="xl">
+                Explore
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="sm:w-3/5 border-2 h-36"></div>

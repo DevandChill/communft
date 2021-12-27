@@ -4,10 +4,14 @@ import { Button } from "@/components/elements";
 const CreatePage = () => {
   return (
     <div>
-      <h1>Create Page</h1>
-      <div>Login to create a Collection and collaborate with others!</div>
-      <div>
-        <div>Or continue the playground</div>
+      <div className="my-8 text-center text-3xl text-gray-700 font-bold">
+        Create
+      </div>
+      <div className="my-8 text-center text-xl text-gray-700 font-semibold">
+        <div className="my-8">
+          Login to create a Collection and collaborate with others!
+        </div>
+        <div className="my-4">Or continue the playground</div>
         {/* <Link to="/playground"> */}
         <Link to="/app/design">
           <Button>Playground</Button>
