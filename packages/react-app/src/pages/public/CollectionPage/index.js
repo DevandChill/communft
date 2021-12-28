@@ -1,8 +1,11 @@
 import { useState } from "react";
 import {
   CollectionHeader,
-  TraitsTab,
-  TraitCard,
+  // TraitsTab,
+  // TraitCard,
+  TraitsDropdown,
+  MiniTraitCard,
+  TraitVoteCard,
 } from "@/components/collection";
 
 const traits = [
@@ -68,20 +71,51 @@ const traits = [
 
 const CollectionPage = () => {
   const [traitFilter, setTraitFilter] = useState("");
+  const [lastSelectedTrait, setLastSelectedTrait] = useState({});
+
   const handleSelectTrait = (trait) => {
     if (trait === "all") {
       setTraitFilter("");
     } else setTraitFilter(trait);
+  };
+
+  const selectTrait = (trait) => {
+    setLastSelectedTrait(trait);
   };
   return (
     <div className="flex-col justify-center h-full bg-gray-500">
       <div>
         <CollectionHeader />
       </div>
-      <div className="flex justify-center pb-4">
-        <TraitsTab selectTrait={handleSelectTrait} />
+      <div className="flex">
+        <div className="w-1/2">
+          <TraitVoteCard lastSelectedTrait={lastSelectedTrait} />
+        </div>
+        <div className="w-1/2">
+          <TraitsDropdown selectTrait={handleSelectTrait} />
+          <div className="p-4 flex flex-wrap h-96 overflow-y-auto border">
+            {traits.map((trait, id) => {
+              const show_filter_boolean =
+                traitFilter === trait.type || traitFilter === "";
+              if (show_filter_boolean)
+                return (
+                  <div key={id} className="md:w-1/2 lg:w-1/3">
+                    <MiniTraitCard
+                      trait={trait}
+                      selectTrait={() => selectTrait(trait)}
+                      currentSelected={lastSelectedTrait}
+                    />
+                  </div>
+                );
+              else return null;
+            })}
+          </div>
+        </div>
       </div>
 
+      {/* <div className="flex justify-center pb-4">
+        <TraitsTab selectTrait={handleSelectTrait} />
+      </div>
       <div className="p-4 flex flex-wrap">
         {traits.map((trait, id) => {
           const show_filter_boolean =
@@ -94,7 +128,7 @@ const CollectionPage = () => {
             );
           else return null;
         })}
-      </div>
+      </div> */}
     </div>
   );
 };
