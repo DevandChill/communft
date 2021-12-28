@@ -10,6 +10,7 @@ import "./button.css";
  * @param {*} outline
  * @param {*} disabled true,false
  * @param {*} width full,half,pill
+ * @param {*} weight bold,semibold,medium
  * @param {*} processing true, false
  * @returns
  */
@@ -21,6 +22,7 @@ const Button = ({
   onClick,
   disabled,
   width,
+  weight,
   processing,
   type,
 }) => {
@@ -44,6 +46,10 @@ const Button = ({
     case "gray":
       color =
         "text-white bg-gray-400 hover:bg-gray-500 border border-transparent shadow-sm";
+      break;
+    case "white":
+      color =
+        "text-primary-100 bg-white hover:bg-gray-100 border border-transparent shadow-sm";
       break;
     case "diabled":
       color = "text-gray-100 bg-gray-400 border border-transparent shadow-sm";
@@ -97,6 +103,17 @@ const Button = ({
       width = "w-40";
   }
 
+  switch (weight) {
+    case "bold":
+      weight = "font-bold";
+      break;
+    case "semibold":
+      weight = "font-semibold";
+      break;
+    default:
+      weight = "font-medium";
+  }
+
   if (processing)
     return (
       <button
@@ -112,7 +129,7 @@ const Button = ({
     <Fragment>
       <button
         onClick={onClick}
-        className={`relative justify-center inline-flex items-center px-2 py-1  rounded-md focus:outline-none font-medium ${color} ${size} ${width}`}
+        className={`relative justify-center inline-flex items-center px-2 py-1  rounded-md focus:outline-none ${weight} ${color} ${size} ${width}`}
         disabled={disabled}
         type={type}
       >

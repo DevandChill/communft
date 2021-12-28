@@ -1,30 +1,33 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/elements";
+import image from "./Pointers.png";
 
 const Hero = () => {
   return (
-    <div>
-      <div className="container mx-auto px-6 sm:px-12 flex flex-col-reverse sm:flex-row items-center">
-        <div className="sm:w-2/5 flex flex-col items-start mt-8 sm:mt-0">
+    <div className="bg-primary-100">
+      <div className="container mx-auto px-6 lg:px-12 flex flex-col-reverse md:flex-row items-center">
+        <div className="md:w-2/5 flex flex-col items-start mt-8 sm:mt-0">
           <h1 className="text-4xl lg:text-6xl leading-none mb-4">
-            <strong className="font-black">
+            <strong className="text-gray-100">
               Create Art collections collaboratively
             </strong>
           </h1>
-          <div className="flex gap-8">
+          <div className="flex gap-12 mt-4">
             <Link to="/app/design">
-              <Button width="half" size="xl">
+              <Button size="2xl" color="white" weight="bold">
                 Draw
               </Button>
             </Link>
             <Link to="/explore">
-              <Button width="half" size="xl">
+              <Button size="2xl" color="white" weight="bold">
                 Explore
               </Button>
             </Link>
           </div>
         </div>
-        <div className="sm:w-3/5 border-2 h-36"></div>
+        <div className="md:w-3/5">
+          <img src={image} alt="Communft Example" />
+        </div>
       </div>
     </div>
   );

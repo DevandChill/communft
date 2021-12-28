@@ -2,7 +2,7 @@ import { Hero } from "@/components/landing";
 
 const LandingPage = () => {
   return (
-    <div>
+    <div className="bg-primary-100 h-screen">
       <Hero />
     </div>
   );
