@@ -3,6 +3,7 @@ import { getAnalytics, logEvent } from "firebase/analytics";
 import { getAuth, connectAuthEmulator } from "firebase/auth";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
+import { getStorage, connectStorageEmulator } from "firebase/storage";
 
 const config = {
   apiKey: process.env.REACT_APP_PROD_API_KEY,
@@ -23,6 +24,7 @@ export default firebaseApp;
 const auth = getAuth();
 const db = getFirestore();
 const functions = getFunctions(getApp());
+const storage = getStorage();
 
 if (window.location.hostname === "localhost") {
   // auth emulator working
@@ -31,4 +33,5 @@ if (window.location.hostname === "localhost") {
   connectFirestoreEmulator(db, "localhost", 8080);
   // functions emulator working
   connectFunctionsEmulator(functions, "localhost", 5001);
+  connectStorageEmulator(storage, "localhost", 9199);
 }
