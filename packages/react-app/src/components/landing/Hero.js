@@ -13,7 +13,7 @@ const Hero = () => {
             </strong>
           </h1>
           <div className="flex gap-12 mt-4">
-            <Link to="/app/design">
+            <Link to="/playground">
               <Button size="2xl" color="white" weight="bold">
                 Draw
               </Button>
@@ -23,6 +23,12 @@ const Hero = () => {
                 Explore
               </Button>
             </Link>
+          </div>
+          <div className="my-4 text-gray-100 font-semibold">
+            <div>* App is currently in Alpha *</div>
+            <div className="pl-3">
+              Please continue to check back as we test and develop
+            </div>
           </div>
         </div>
         <div className="md:w-3/5">

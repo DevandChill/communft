@@ -1,10 +1,7 @@
-import { useEffect } from "react";
-import { Route, Routes, Outlet } from "react-router-dom";
+import { useEffect, useState, useContext, createContext } from "react";
+import { Route, Routes, Outlet, Navigate } from "react-router-dom";
 import firebaseApp from "./services/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-
-import { setUserLogin } from "./store/user/userSlice";
-import { useDispatch } from "react-redux";
 
 import CreateCollectionPage from "@/pages/app/CreateCollectionPage";
 import DesignPage from "@/pages/app/DesignPage";
@@ -22,35 +19,15 @@ import PrivacyPage from "@/pages/public/PrivacyPage";
 
 import NotFoundPage from "@/pages/public/NotFoundPage";
 
-import { PublicHeader } from "@/components/layout";
-// import { AppHeader, PublicHeader, PublicFooter } from "@/components/layout";
+import { AppHeader } from "@/components/layout";
 
 const auth = getAuth(firebaseApp);
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // console.log("user", user);
-        auth.currentUser.getIdTokenResult().then(function ({ claims }) {
-          // console.log(claims);
-          dispatch(
-            setUserLogin({
-              uid: claims.user_id,
-            })
-          );
-        });
-      } else {
-        // console.log("no user");
-      }
-    });
-  }, [dispatch]);
   return (
-    <div>
+    <AuthProvider>
       <Routes>
-        <Route path="/" element={<PublicLayout />}>
+        <Route path="/" element={<AppLayout />}>
           <Route exact path={"/"} element={<LandingPage />} />
           <Route exact path={"/explore"} element={<ExplorePage />} />
           <Route exact path={"/create"} element={<CreatePage />} />
@@ -61,44 +38,99 @@ function App() {
           <Route exact path={"/privacy"} element={<PrivacyPage />} />
 
           <Route path="*" element={<NotFoundPage />} />
-        </Route>
 
-        <Route path="/app" element={<AppLayout />}>
           <Route
             exact
             path={"/app/create"}
-            element={<CreateCollectionPage />}
+            element={
+              <RequireAuth>
+                <CreateCollectionPage />
+              </RequireAuth>
+            }
           />
-          <Route exact path={"/app/design"} element={<DesignPage />} />
-          <Route exact path={"/app/minting"} element={<MintingPage />} />
-          <Route exact path={"/app/profile"} element={<ProfilePage />} />
+          <Route
+            exact
+            path={"/app/design"}
+            element={
+              <RequireAuth>
+                <DesignPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            exact
+            path={"/app/minting"}
+            element={
+              <RequireAuth>
+                <MintingPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            exact
+            path={"/app/profile"}
+            element={
+              <RequireAuth>
+                <ProfilePage />
+              </RequireAuth>
+            }
+          />
         </Route>
       </Routes>
-    </div>
+    </AuthProvider>
   );
 }
 
 export default App;
 
-const PublicLayout = () => {
+const AppLayout = () => {
+  let auth = useAuth();
   return (
-    <div>
-      <PublicHeader />
+    <div className="">
+      <AppHeader user={auth.user} />
       <Outlet />
-      {/* <PublicFooter /> */}
     </div>
   );
 };
 
-const AppLayout = () => {
-  return (
-    <div className="">
-      <div className="">
-        <PublicHeader />
-      </div>
-      <div className="">
-        <Outlet />
-      </div>
-    </div>
-  );
+const AuthContext = createContext(null);
+
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        auth.currentUser.getIdTokenResult().then(function ({ claims }) {
+          setUser(claims.user_id);
+          setLoading(false);
+        });
+      } else {
+        setUser(null);
+        setLoading(false);
+      }
+    });
+  }, []);
+
+  let value = { user, loading };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
+
+const useAuth = () => {
+  return useContext(AuthContext);
+};
+
+const RequireAuth = ({ children }) => {
+  let auth = useAuth();
+  if (auth.loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!auth.user && !auth.loading) {
+    return <Navigate to="/" />;
+  }
+
+  return children;
 };
