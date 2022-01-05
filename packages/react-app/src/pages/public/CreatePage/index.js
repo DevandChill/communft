@@ -12,8 +12,8 @@ const CreatePage = () => {
           Login to create a Collection and collaborate with others!
         </div>
         <div className="my-4">Or continue the playground</div>
-        {/* <Link to="/playground"> */}
-        <Link to="/app/design">
+        <Link to="/playground">
+          {/* <Link to="/app/design"> */}
           <Button>Playground</Button>
         </Link>
       </div>
