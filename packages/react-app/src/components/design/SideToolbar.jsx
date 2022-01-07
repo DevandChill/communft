@@ -20,7 +20,7 @@ const SideToolbar = ({ sideToolbarSelect, sideToolbarWidget }) => {
   const [activeSave, setActiveSave] = useState(true);
 
   return (
-    <div className="pt-1 w-10 h-screen bg-gray-500 ">
+    <div className="pt-1 w-10 h-screen bg-gray-500 fixed z-50">
       <div>
         <Button
           onClick={() => {

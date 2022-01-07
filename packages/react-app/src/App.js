@@ -86,9 +86,17 @@ export default App;
 const AppLayout = () => {
   let auth = useAuth();
   return (
-    <div className="">
-      <AppHeader user={auth.user} />
-      <Outlet />
+    <div className="flex h-screen">
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <header className="flex justify-between items-center py-4">
+          <AppHeader user={auth.user} />
+        </header>
+        <main className="flex-1 overflow-auto bg-gray-200">
+          <div className="py-8">
+            <Outlet />
+          </div>
+        </main>
+      </div>
     </div>
   );
 };
