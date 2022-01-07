@@ -1,13 +1,20 @@
-import { useState } from "react";
-import { connect } from "react-redux";
+import { useState, useEffect } from "react";
 import { useUserPublicData } from "@/hooks";
 import { UserBanner, UserProfileEdit } from "@/components/profile";
 
-// import { getFirestore, doc, onSnapshot, updateDoc } from "firebase/firestore";
-// const db = getFirestore();
+const ProfilePage = () => {
+  const [uid, setUid] = useState("");
 
-const ProfilePage = ({ currentUser }) => {
-  const { uid } = currentUser;
+  useEffect(() => {
+    const getAccount = async () => {
+      let account = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      setUid(account[0]);
+    };
+    return getAccount();
+  }, []);
+
   const [profileEdit, setProfileEdit] = useState(false);
 
   const { userJoined, username, avatar, discord, github, twitter } =
@@ -62,10 +69,4 @@ const ProfilePage = ({ currentUser }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.user,
-  };
-};
-
-export default connect(mapStateToProps)(ProfilePage);
+export default ProfilePage;

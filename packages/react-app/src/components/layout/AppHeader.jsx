@@ -55,11 +55,14 @@ const AppHeader = ({ user }) => {
     signOut(auth);
   };
   return (
-    <Disclosure as="nav" className="bg-white shadow">
+    <Disclosure
+      as="nav"
+      className="bg-white shadow h-16 fixed inset-x-0 top-0 z-50"
+    >
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16">
+            <div className="flex justify-between">
               <div className="flex">
                 <div className="m-4">
                   <Link to="/">
@@ -162,7 +165,7 @@ const AppHeader = ({ user }) => {
             </div>
           </div>
 
-          <Disclosure.Panel className="sm:hidden">
+          <Disclosure.Panel className="sm:hidden bg-white">
             <div className="pt-2 pb-3 space-y-1">
               {navItems.map(({ name, link }, index) => (
                 <Link
