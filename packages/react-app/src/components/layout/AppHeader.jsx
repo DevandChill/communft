@@ -57,7 +57,7 @@ const AppHeader = ({ user }) => {
   return (
     <Disclosure
       as="nav"
-      className="bg-white shadow h-16 fixed inset-x-0 top-0 z-50"
+      className="bg-white shadow-lg rounded-2xl h-16 fixed inset-x-0 top-0 z-50"
     >
       {({ open }) => (
         <>
