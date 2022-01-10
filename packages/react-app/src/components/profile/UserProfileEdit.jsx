@@ -172,7 +172,7 @@ const UserProfileEdit = ({ uid, closeEdit }) => {
                 <div>
                   <Input
                     id="username"
-                    title="Username"
+                    label="Username"
                     type="text"
                     value={usernameEdit}
                     onChange={(e) => setUsernameEdit(e.target.value)}
@@ -181,7 +181,7 @@ const UserProfileEdit = ({ uid, closeEdit }) => {
                 <div>
                   <Input
                     id="username"
-                    title="Discord"
+                    label="Discord"
                     type="text"
                     value={discordEdit}
                     onChange={(e) => setDiscordEdit(e.target.value)}
@@ -190,7 +190,7 @@ const UserProfileEdit = ({ uid, closeEdit }) => {
                 <div>
                   <Input
                     id="username"
-                    title="Github"
+                    label="Github"
                     type="text"
                     value={githubEdit}
                     onChange={(e) => setGithubEdit(e.target.value)}
@@ -199,7 +199,7 @@ const UserProfileEdit = ({ uid, closeEdit }) => {
                 <div>
                   <Input
                     id="username"
-                    title="Twitter"
+                    label="Twitter"
                     type="text"
                     value={twitterEdit}
                     onChange={(e) => setTwitterEdit(e.target.value)}

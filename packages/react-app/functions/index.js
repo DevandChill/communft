@@ -7,4 +7,6 @@ module.exports = {
   // user login and creation
   ...require("./login/UserLogin"),
   ...require("./login/UserCreated"),
+  // collection creation
+  ...require("./collection/CreateCollection"),
 };

@@ -3,6 +3,7 @@ import { Route, Routes, Outlet, Navigate } from "react-router-dom";
 import firebaseApp from "./services/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
+import UserExplorePage from "@/pages/app/UserExplorePage";
 import CreateCollectionPage from "@/pages/app/CreateCollectionPage";
 import DesignPage from "@/pages/app/DesignPage";
 import MintingPage from "@/pages/app/MintingPage";
@@ -29,16 +30,40 @@ function App() {
       <Routes>
         <Route path="/" element={<AppLayout />}>
           <Route exact path={"/"} element={<LandingPage />} />
-          <Route exact path={"/explore"} element={<ExplorePage />} />
-          <Route exact path={"/create"} element={<CreatePage />} />
+          <Route
+            exact
+            path={"/explore"}
+            element={
+              <CheckAuth path={"/app/explore"}>
+                <ExplorePage />
+              </CheckAuth>
+            }
+          />
+          <Route
+            exact
+            path={"/create"}
+            element={
+              <CheckAuth path={"/app/create"}>
+                <CreatePage />
+              </CheckAuth>
+            }
+          />
           <Route exact path={"/collection/:id"} element={<CollectionPage />} />
           <Route exact path={"/user/:id"} element={<UserPage />} />
           <Route exact path={"/leaderboard"} element={<LeaderboardPage />} />
           <Route exact path={"/playground"} element={<PlaygroundPage />} />
           <Route exact path={"/privacy"} element={<PrivacyPage />} />
-
           <Route path="*" element={<NotFoundPage />} />
 
+          <Route
+            exact
+            path={"/app/explore"}
+            element={
+              <RequireAuth>
+                <UserExplorePage />
+              </RequireAuth>
+            }
+          />
           <Route
             exact
             path={"/app/create"}
@@ -138,6 +163,19 @@ const RequireAuth = ({ children }) => {
 
   if (!auth.user && !auth.loading) {
     return <Navigate to="/" />;
+  }
+
+  return children;
+};
+
+const CheckAuth = ({ children, path }) => {
+  let auth = useAuth();
+  if (auth.loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (auth.user && !auth.loading) {
+    return <Navigate to={path} />;
   }
 
   return children;
