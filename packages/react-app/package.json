@@ -13,18 +13,13 @@
     "deploy:functions": "firebase deploy --only functions"
   },
   "dependencies": {
-    "@craco/craco": "^6.4.0",
+    "@craco/craco": "^6.4.3",
     "@davatar/react": "^1.8.1",
-    "@headlessui/react": "^1.4.2",
-    "@heroicons/react": "^1.0.5",
     "@jaames/iro": "^5.5.2",
     "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@themesberg/tailwind-datepicker": "^1.1.0",
-    "@web3-react/core": "^6.1.9",
-    "@web3-ui/core": "^0.2.1",
     "connected-react-router": "^6.9.1",
     "ethers": "^5.5.1",
     "firebase": "^9.6.0",
@@ -33,15 +28,17 @@
     "react-dom": "^17.0.2",
     "react-multi-carousel": "^2.6.5",
     "react-redux": "^7.2.6",
-    "react-router-dom": "^6.0.2",
+    "react-router-dom": "^6.2.1",
     "react-sketch-canvas": "^6.1.0",
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
-    "autoprefixer": "^9",
-    "postcss": "^7",
-    "react-scripts": "4.0.3",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "@headlessui/react": "^1.4.2",
+    "@heroicons/react": "^1.0.5",
+    "autoprefixer": "^10.4.2",
+    "postcss": "^8.4.5",
+    "react-scripts": "^5.0.0",
+    "tailwindcss": "^3.0.13",
     "typescript": "^4.5.2"
   },
   "eslintConfig": {
