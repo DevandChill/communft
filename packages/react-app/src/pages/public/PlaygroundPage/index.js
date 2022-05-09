@@ -13,7 +13,7 @@ import { Button } from "@/components/elements";
 import trans_bg_500 from "@/components/backgrounds/transparent-bg-500.png";
 import silhouette from "@/components/backgrounds/silhouette.png";
 
-const PlaygroundPage = () => {
+export const PlaygroundPage = () => {
   const [strokeWidth, setStrokeWidth] = useState(5);
   const [strokeColor, setStrokeColor] = useState("#FF0000");
   const [eraserWidth, setEraserWidth] = useState(5);
@@ -286,5 +286,3 @@ const PlaygroundPage = () => {
     </div>
   );
 };
-
-export default PlaygroundPage;

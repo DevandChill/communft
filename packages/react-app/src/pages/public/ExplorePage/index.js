@@ -65,7 +65,7 @@ const collections = [
   },
 ];
 
-const ExplorePage = () => {
+export const ExplorePage = () => {
   return (
     <div>
       <div className="text-center text-3xl text-gray-700 font-bold my-8">
@@ -88,5 +88,3 @@ const ExplorePage = () => {
     </div>
   );
 };
-
-export default ExplorePage;

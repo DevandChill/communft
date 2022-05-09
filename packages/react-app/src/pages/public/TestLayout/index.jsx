@@ -1,4 +1,4 @@
-const TestLayout = () => {
+export const TestLayout = () => {
   return (
     <div className="flex h-screen bg-gray-200">
       {/* <div
@@ -33,5 +33,3 @@ const TestLayout = () => {
     </div>
   );
 };
-
-export default TestLayout;

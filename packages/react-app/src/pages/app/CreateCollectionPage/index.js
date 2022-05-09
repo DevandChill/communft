@@ -22,7 +22,7 @@ import { getFunctions, httpsCallable } from "firebase/functions";
 // const db = getFirestore();
 const functions = getFunctions();
 
-const CreateCollectionPage = () => {
+export const CreateCollectionPage = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [access, setAccess] = useState(true);
@@ -150,5 +150,3 @@ const CreateCollectionPage = () => {
     </div>
   );
 };
-
-export default CreateCollectionPage;

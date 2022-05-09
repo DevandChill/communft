@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useUserPublicData } from "@/hooks";
 import { UserBanner, UserProfileEdit } from "@/components/profile";
 
-const ProfilePage = () => {
+export const ProfilePage = () => {
   const [uid, setUid] = useState("");
 
   useEffect(() => {
@@ -68,5 +68,3 @@ const ProfilePage = () => {
     </div>
   );
 };
-
-export default ProfilePage;

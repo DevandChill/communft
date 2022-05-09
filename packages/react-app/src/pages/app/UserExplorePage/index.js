@@ -1,4 +1,4 @@
-const UserExplorePage = () => {
+export const UserExplorePage = () => {
   return (
     <div>
       <div className="text-center text-3xl text-gray-700 font-bold my-8">
@@ -12,5 +12,3 @@ const UserExplorePage = () => {
     </div>
   );
 };
-
-export default UserExplorePage;

@@ -1,5 +1,3 @@
-const MintingPage = () => {
+export const MintingPage = () => {
   return <div>Minting Page</div>;
 };
-
-export default MintingPage;

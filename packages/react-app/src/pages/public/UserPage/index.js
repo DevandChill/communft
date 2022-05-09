@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import { useUserPublicData } from "@/hooks";
 import { UserBanner } from "@/components/profile";
 
-const UserPage = () => {
+export const UserPage = () => {
   const address = useLocation().pathname.replace("/user/", "");
   const {
     userAccount,
@@ -65,5 +65,3 @@ const UserPage = () => {
     }
   }
 };
-
-export default UserPage;

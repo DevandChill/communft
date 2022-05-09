@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const NotFoundPage = () => {
+export const NotFoundPage = () => {
   console.log("NotFoundPage");
   let background = {
     backgroundImage:
@@ -42,5 +42,3 @@ const NotFoundPage = () => {
     </div>
   );
 };
-
-export default NotFoundPage;

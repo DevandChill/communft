@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/elements";
 
-const CreatePage = () => {
+export const CreatePage = () => {
   return (
     <div>
       <div className="my-8 text-center text-3xl text-gray-700 font-bold">
@@ -20,5 +20,3 @@ const CreatePage = () => {
     </div>
   );
 };
-
-export default CreatePage;

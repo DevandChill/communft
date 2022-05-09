@@ -11,7 +11,7 @@ import {
 const db = getFirestore();
 const userRef = collection(db, "users");
 
-const LeaderboardPage = () => {
+export const LeaderboardPage = () => {
   const address = useLocation().pathname.replace("/leaderboard/", "");
   console.log("address : ", address);
   useEffect(() => {
@@ -28,5 +28,3 @@ const LeaderboardPage = () => {
   }, [address]);
   return <div>Leaderboard Page</div>;
 };
-
-export default LeaderboardPage;

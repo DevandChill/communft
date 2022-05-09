@@ -69,7 +69,7 @@ const traits = [
   },
 ];
 
-const CollectionPage = () => {
+export const CollectionPage = () => {
   const [traitFilter, setTraitFilter] = useState("");
   const [lastSelectedTrait, setLastSelectedTrait] = useState({});
 
@@ -132,5 +132,3 @@ const CollectionPage = () => {
     </div>
   );
 };
-
-export default CollectionPage;
