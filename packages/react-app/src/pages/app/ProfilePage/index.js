@@ -12,7 +12,7 @@ const ProfilePage = () => {
       });
       setUid(account[0]);
     };
-    return getAccount();
+    getAccount();
   }, []);
 
   const [profileEdit, setProfileEdit] = useState(false);
