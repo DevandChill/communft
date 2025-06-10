@@ -28,7 +28,7 @@ module.exports = {
     },
     rinkeby: {
       chainId: 4,
-      url: "https://rinkeby.infura.io/v3/06544ce1bd8f4930977a5b2461c66bbf",
+      url: `https://rinkeby.infura.io/v3/${process.env.INFURA_API_KEY}`,
       // UNCOMMENT THIS AND ADD YOUR PRIVATE KEY IF YOU WANT TO DEPLOY TO THE RINKEBY TESTNET
       // accounts: ['YOUR_PRIVATE_KEY'],
     },
